@@ -19,3 +19,6 @@ sshj.jar
 
 # MacOS X
 .DS_Store
+/bin/
+lib/
+src/main/java/sshj.properties
