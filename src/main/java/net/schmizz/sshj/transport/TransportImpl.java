@@ -406,11 +406,14 @@ public final class TransportImpl
         close.lock();
         try {
             if (isRunning()) {
-                disconnectListener.notifyDisconnect(reason, message);
-                getService().notifyError(new TransportException(reason, "Disconnected"));
-                sendDisconnect(reason, message);
-                finishOff();
-                close.set();
+            	try {
+	                disconnectListener.notifyDisconnect(reason, message);
+	                getService().notifyError(new TransportException(reason, "Disconnected"));
+	                sendDisconnect(reason, message);
+            	} finally {
+	                finishOff();
+	                close.set();
+            	}
             }
         } finally {
             close.unlock();
